@@ -460,6 +460,101 @@ body.dashboard-page {
   font-size: 0.69rem;
 }
 
+.storage-list {
+  display: grid;
+  gap: 13px;
+  margin-top: 17px;
+}
+
+.storage-disk + .storage-disk {
+  padding-top: 13px;
+  border-top: 1px solid rgba(194, 235, 220, 0.08);
+}
+
+.storage-disk-heading {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.storage-disk-name {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.storage-disk-name strong {
+  overflow: hidden;
+  color: #d9e5e1;
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.storage-disk-name span {
+  color: #677d75;
+  font-size: 0.59rem;
+  white-space: nowrap;
+}
+
+.storage-disk-total {
+  overflow: hidden;
+  color: #758a82;
+  font-family: "Courier New", monospace;
+  font-size: 0.59rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.storage-percent {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  margin: 7px 0 7px;
+}
+
+.storage-percent strong {
+  color: #edf3f0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.storage-percent span {
+  color: #70867e;
+  font-size: 0.6rem;
+}
+
+.storage-details {
+  display: flex;
+  gap: 22px;
+  margin: 8px 0 0;
+}
+
+.storage-details div {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+}
+
+.storage-details dt {
+  color: #61776f;
+  font-size: 0.58rem;
+}
+
+.storage-details dd {
+  margin: 0;
+  color: #b5c7c1;
+  font-family: "Courier New", monospace;
+  font-size: 0.62rem;
+}
+
 .uptime-card {
   background:
     radial-gradient(circle at 92% 18%, rgba(99, 230, 181, 0.1), transparent 45%),

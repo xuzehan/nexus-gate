@@ -41,7 +41,7 @@
         <div>
           <p class="eyebrow">SYSTEM OVERVIEW</p>
           <h1 id="dashboard-title">
-            欢迎回来，<span id="current-username">用户</span>
+            NexusGate <span>运行总览</span>
           </h1>
           <p class="dashboard-intro">
             G4 主机资源与 NexusGate 依赖服务实时概览。
@@ -136,7 +136,7 @@
           </dl>
         </article>
 
-        <article class="metric-card" id="disk-card">
+        <article class="metric-card storage-card" id="disk-card">
           <div class="metric-heading">
             <div class="metric-title">
               <span class="metric-icon" aria-hidden="true">
@@ -148,34 +148,79 @@
               </span>
               <div>
                 <p class="metric-label">STORAGE</p>
-                <h2>/data 磁盘</h2>
+                <h2>存储空间</h2>
               </div>
             </div>
-            <span class="metric-tag" id="disk-total">--</span>
+            <span class="metric-tag">双盘监控</span>
           </div>
-          <div class="metric-value-row">
-            <strong id="disk-value">--</strong><span>%</span>
+
+          <div class="storage-list">
+            <section class="storage-disk" aria-label="数据盘使用情况">
+              <div class="storage-disk-heading">
+                <div class="storage-disk-name">
+                  <strong id="disk-path">/data</strong>
+                  <span>数据盘</span>
+                </div>
+                <span class="storage-disk-total" id="disk-total">--</span>
+              </div>
+              <div class="storage-percent">
+                <strong id="disk-value">--</strong><span>%</span>
+              </div>
+              <div
+                class="metric-track"
+                id="disk-track"
+                role="progressbar"
+                aria-label="/data 磁盘使用率"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <span class="metric-fill"></span>
+              </div>
+              <dl class="storage-details">
+                <div>
+                  <dt>已用</dt>
+                  <dd id="disk-used">--</dd>
+                </div>
+                <div>
+                  <dt>可用</dt>
+                  <dd id="disk-free">--</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="storage-disk" aria-label="系统盘使用情况">
+              <div class="storage-disk-heading">
+                <div class="storage-disk-name">
+                  <strong id="root-disk-path">/</strong>
+                  <span>系统盘</span>
+                </div>
+                <span class="storage-disk-total" id="root-disk-total">--</span>
+              </div>
+              <div class="storage-percent">
+                <strong id="root-disk-value">--</strong><span>%</span>
+              </div>
+              <div
+                class="metric-track"
+                id="root-disk-track"
+                role="progressbar"
+                aria-label="系统盘使用率"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <span class="metric-fill"></span>
+              </div>
+              <dl class="storage-details">
+                <div>
+                  <dt>已用</dt>
+                  <dd id="root-disk-used">--</dd>
+                </div>
+                <div>
+                  <dt>可用</dt>
+                  <dd id="root-disk-free">--</dd>
+                </div>
+              </dl>
+            </section>
           </div>
-          <div
-            class="metric-track"
-            id="disk-track"
-            role="progressbar"
-            aria-label="磁盘使用率"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            <span class="metric-fill"></span>
-          </div>
-          <dl class="metric-details">
-            <div>
-              <dt>已使用</dt>
-              <dd id="disk-used">--</dd>
-            </div>
-            <div>
-              <dt>剩余</dt>
-              <dd id="disk-free">--</dd>
-            </div>
-          </dl>
         </article>
 
         <article class="metric-card uptime-card" id="uptime-card">

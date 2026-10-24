@@ -13,7 +13,6 @@
     connectionLabel: document.querySelector("#connection-label"),
     refreshButton: document.querySelector("#refresh-button"),
     logoutButton: document.querySelector("#logout-button"),
-    username: document.querySelector("#current-username"),
     lastUpdated: document.querySelector("#last-updated"),
     syncState: document.querySelector("#sync-state"),
     error: document.querySelector("#dashboard-error"),
@@ -29,11 +28,18 @@
     memoryAvailable: document.querySelector("#memory-available"),
     memoryTrack: document.querySelector("#memory-track"),
     diskCard: document.querySelector("#disk-card"),
+    diskPath: document.querySelector("#disk-path"),
     diskValue: document.querySelector("#disk-value"),
     diskTotal: document.querySelector("#disk-total"),
     diskUsed: document.querySelector("#disk-used"),
     diskFree: document.querySelector("#disk-free"),
     diskTrack: document.querySelector("#disk-track"),
+    rootDiskPath: document.querySelector("#root-disk-path"),
+    rootDiskValue: document.querySelector("#root-disk-value"),
+    rootDiskTotal: document.querySelector("#root-disk-total"),
+    rootDiskUsed: document.querySelector("#root-disk-used"),
+    rootDiskFree: document.querySelector("#root-disk-free"),
+    rootDiskTrack: document.querySelector("#root-disk-track"),
     uptimeValue: document.querySelector("#uptime-value"),
     bootTime: document.querySelector("#boot-time"),
     servicesGrid: document.querySelector("#services-grid"),
@@ -135,19 +141,47 @@
     return dateFormatter.format(date);
   }
 
-  function updateProgress(card, track, percent) {
+  function setProgress(track, percent) {
     const safePercent = Number.isFinite(percent)
       ? Math.min(100, Math.max(0, percent))
       : 0;
     track.querySelector(".metric-fill").style.width = `${safePercent}%`;
     track.setAttribute("aria-valuenow", String(Math.round(safePercent)));
+  }
+
+  function setCardThreshold(card, percent) {
+    const safePercent = Number.isFinite(percent) ? percent : 0;
     card.classList.toggle("is-warning", safePercent >= 75 && safePercent < 90);
     card.classList.toggle("is-critical", safePercent >= 90);
   }
 
+  function updateProgress(card, track, percent) {
+    setProgress(track, percent);
+    setCardThreshold(card, percent);
+  }
+
+  function renderStorageDisk(disk, path, elementsForDisk) {
+    const isAvailable = Boolean(disk?.available);
+    const percent = isAvailable && Number.isFinite(disk.percent)
+      ? disk.percent
+      : 0;
+
+    elementsForDisk.path.textContent = disk?.path || path;
+    elementsForDisk.value.textContent = isAvailable
+      ? formatPercent(disk.percent)
+      : "N/A";
+    elementsForDisk.total.textContent = isAvailable
+      ? formatBytes(disk.total_bytes)
+      : disk?.detail || "不可用";
+    elementsForDisk.used.textContent = formatBytes(disk?.used_bytes);
+    elementsForDisk.free.textContent = formatBytes(disk?.free_bytes);
+    setProgress(elementsForDisk.track, percent);
+
+    return percent;
+  }
+
   function renderMetrics(data) {
-    elements.username.textContent = data.user.username;
-    document.title = `${data.user.username} | NexusGate 仪表盘`;
+    document.title = "NexusGate | 运行总览";
 
     elements.cpuValue.textContent = formatPercent(data.cpu.percent);
     elements.cpuCores.textContent = `${data.cpu.logical_cores} 核心`;
@@ -165,22 +199,40 @@
       data.memory.percent,
     );
 
-    elements.diskValue.textContent = data.disk.available
-      ? formatPercent(data.disk.percent)
-      : "N/A";
-    elements.diskTotal.textContent = data.disk.available
-      ? formatBytes(data.disk.total_bytes)
-      : data.disk.path;
-    elements.diskUsed.textContent = formatBytes(data.disk.used_bytes);
-    elements.diskFree.textContent = formatBytes(data.disk.free_bytes);
-    updateProgress(
-      elements.diskCard,
-      elements.diskTrack,
-      data.disk.available ? data.disk.percent : 0,
+    const disks = Array.isArray(data.disks) && data.disks.length > 0
+      ? data.disks
+      : [data.disk].filter(Boolean);
+    const dataDisk = disks.find((disk) => disk.path === "/data")
+      ?? disks[0];
+    const rootDisk = disks.find((disk) => disk.path === "/");
+    const dataDiskPercent = renderStorageDisk(
+      dataDisk,
+      "/data",
+      {
+        path: elements.diskPath,
+        value: elements.diskValue,
+        total: elements.diskTotal,
+        used: elements.diskUsed,
+        free: elements.diskFree,
+        track: elements.diskTrack,
+      },
     );
-    if (!data.disk.available && data.disk.detail) {
-      elements.diskTotal.textContent = data.disk.detail;
-    }
+    const rootDiskPercent = renderStorageDisk(
+      rootDisk,
+      "/",
+      {
+        path: elements.rootDiskPath,
+        value: elements.rootDiskValue,
+        total: elements.rootDiskTotal,
+        used: elements.rootDiskUsed,
+        free: elements.rootDiskFree,
+        track: elements.rootDiskTrack,
+      },
+    );
+    setCardThreshold(
+      elements.diskCard,
+      Math.max(dataDiskPercent, rootDiskPercent),
+    );
 
     elements.uptimeValue.textContent = formatDuration(
       data.system.uptime_seconds,

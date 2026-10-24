@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="创建 NexusGate 账号"
+    />
+    <title>NexusGate | 注册</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell register-shell">
+      <section class="intro-panel" aria-labelledby="register-welcome-title">
+        <a class="brand" href="./index.html" aria-label="NexusGate 登录页">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span>NexusGate</span>
+        </a>
+
+        <div class="intro-copy">
+          <p class="eyebrow">CREATE ACCOUNT</p>
+          <h1 id="register-welcome-title">
+            加入 NexusGate，
+            <span>从这里开始。</span>
+          </h1>
+          <p class="intro-text">
+            验证你的邮箱，创建专属账号。你的密码将经过 bcrypt 加密后安全存储。
+          </p>
+        </div>
+
+        <ul class="feature-list" aria-label="注册流程">
+          <li>
+            <span class="feature-icon" aria-hidden="true">01</span>
+            <span>填写账号信息</span>
+          </li>
+          <li>
+            <span class="feature-icon" aria-hidden="true">02</span>
+            <span>验证邮箱地址</span>
+          </li>
+          <li>
+            <span class="feature-icon" aria-hidden="true">03</span>
+            <span>完成安全注册</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="login-panel" aria-labelledby="register-title">
+        <div class="login-content">
+          <div class="login-heading">
+            <p class="eyebrow">ACCOUNT REGISTRATION</p>
+            <h2 id="register-title">创建账号</h2>
+            <p>填写信息并通过邮箱验证码完成注册。</p>
+          </div>
+
+          <form id="register-form" class="register-form" novalidate>
+            <div class="field">
+              <label for="username">用户名</label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                maxlength="64"
+                placeholder="设置你的用户名"
+                required
+                autofocus
+              />
+            </div>
+
+            <div class="field">
+              <label for="email">邮箱</label>
+              <div class="code-request-row">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  maxlength="254"
+                  placeholder="name@example.com"
+                  required
+                />
+                <button
+                  class="code-button"
+                  id="send-code-button"
+                  type="button"
+                >
+                  发送验证码
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="code">邮箱验证码</label>
+              <input
+                id="code"
+                name="code"
+                type="text"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                pattern="[0-9]{6}"
+                maxlength="6"
+                placeholder="请输入 6 位验证码"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="password">密码</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                maxlength="72"
+                placeholder="至少 8 个字符"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="confirm-password">确认密码</label>
+              <input
+                id="confirm-password"
+                name="confirm_password"
+                type="password"
+                autocomplete="new-password"
+                minlength="8"
+                maxlength="72"
+                placeholder="再次输入密码"
+                required
+              />
+            </div>
+
+            <p class="form-message" id="form-message" role="alert"></p>
+
+            <button class="submit-button" id="register-button" type="submit">
+              <span class="submit-label">注册账号</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <p class="auth-switch">
+            已有账号？
+            <a href="./index.html">返回登录</a>
+          </p>
+        </div>
+
+        <footer>
+          <span>NexusGate</span>
+          <span>Secure by design</span>
+        </footer>
+      </section>
+    </main>
+
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    >
+      <span class="toast-indicator" aria-hidden="true"></span>
+      <span id="toast-message"></span>
+    </div>
+
+    <script src="./config.js"></script>
+    <script src="./register.js"></script>
+  </body>
+</html>

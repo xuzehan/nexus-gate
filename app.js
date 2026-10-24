@@ -97,6 +97,7 @@
       localStorage.setItem(TOKEN_STORAGE_KEY, data.access_token);
       form.reset();
       showToast("登录成功", "success");
+      window.location.assign("./dashboard.html");
     } catch (error) {
       console.error("Login request failed:", error);
       showToast("登录失败，请稍后重试", "error");

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MHD-EES 仿真报告与评价" />
+    <title>报告与评价 | MHD-EES</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./project.css" />
+    <link rel="stylesheet" href="./mhdees.css?v=2" />
+  </head>
+  <body class="project-page mhdees-page">
+    <header class="project-topbar">
+      <div class="project-topbar-inner mhdees-topbar-inner">
+        <a class="brand" href="./dashboard.html" aria-label="返回 NexusGate 控制台">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span>NexusGate</span>
+        </a>
+        <nav class="project-nav" aria-label="项目导航">
+          <a href="./mhdees.html">需求工作台</a>
+          <a href="./dashboard.html">返回控制台</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="project-main mhdees-main">
+      <section class="project-hero mhdees-hero" aria-labelledby="report-title">
+        <div class="report-hero-score">
+          <div class="score-orbit">
+            <strong id="overall-score">—</strong>
+          </div>
+          <div>
+            <p class="eyebrow">MHD-EES / SIMULATION REPORT</p>
+            <h1 id="report-title">仿真效能报告</h1>
+            <p class="project-subtitle" id="report-subtitle">正在读取报告…</p>
+            <div class="detail-hero-meta">
+              <span class="status-badge status-muted" id="report-status">加载中</span>
+              <span class="record-count" id="report-grade">评级 —</span>
+            </div>
+          </div>
+        </div>
+        <a
+          class="button button-secondary hero-action"
+          id="detail-back"
+          href="./mhdees.html"
+        >
+          查看需求详情
+        </a>
+      </section>
+
+      <div class="inline-message" id="report-message" role="alert" hidden></div>
+
+      <div class="report-layout">
+        <div class="detail-stack">
+          <section class="detail-card" aria-labelledby="indicators-title">
+            <div class="report-section-heading">
+              <div>
+                <p class="section-index">01 / INDICATORS</p>
+                <h2 id="indicators-title">综合指标</h2>
+              </div>
+            </div>
+            <div class="indicator-list" id="indicator-list">
+              <div class="loading-block">正在生成指标视图…</div>
+            </div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="trend-title">
+            <div class="report-section-heading">
+              <div>
+                <p class="section-index">02 / TREND</p>
+                <h2 id="trend-title">吞吐趋势</h2>
+              </div>
+              <span class="record-count">演示数据 · Gbps</span>
+            </div>
+            <div class="series-grid" id="series-grid"></div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="intelligent-title">
+            <div class="report-section-heading">
+              <div>
+                <p class="section-index">03 / AI REVIEW</p>
+                <h2 id="intelligent-title">智能评论</h2>
+              </div>
+            </div>
+            <p class="intelligent-comment" id="intelligent-comment">
+              正在生成智能评论…
+            </p>
+          </section>
+        </div>
+
+        <div class="detail-stack">
+          <section class="detail-card" aria-labelledby="summary-title">
+            <div class="report-section-heading">
+              <div>
+                <p class="section-index">04 / SUMMARY</p>
+                <h2 id="summary-title">评估摘要</h2>
+              </div>
+            </div>
+            <p class="report-summary" id="report-summary">—</p>
+            <ol class="lineage-list" id="lineage-list"></ol>
+          </section>
+
+          <section class="detail-card" aria-labelledby="evaluation-title">
+            <div class="report-section-heading">
+              <div>
+                <p class="section-index">05 / EVALUATION</p>
+                <h2 id="evaluation-title">人工评价</h2>
+              </div>
+            </div>
+            <form class="manual-evaluation" id="evaluation-form">
+              <label class="input-field">
+                <span>评价意见</span>
+                <textarea
+                  id="manual-comment"
+                  maxlength="10000"
+                  placeholder="结合业务目标填写结论、风险和建议"
+                  required
+                ></textarea>
+              </label>
+              <div class="inline-message" id="evaluation-message" role="alert" hidden></div>
+              <button class="button button-primary" id="submit-evaluation" type="submit">
+                提交评价
+              </button>
+            </form>
+            <div class="evaluation-list" id="evaluation-list"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="detail-actions" id="report-actions"></div>
+    </main>
+
+    <footer class="project-footer">
+      <span>NexusGate / MHD-EES</span>
+      <span>Report and evaluation</span>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script src="./mhdees_common.js?v=2"></script>
+    <script src="./mhdees_report.js?v=2"></script>
+  </body>
+</html>

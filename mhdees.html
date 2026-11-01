@@ -5,71 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="多源异构数据效能评估体系 MHD-EES"
+      content="多源异构数据效能评估体系 MHD-EES 验证需求工作台"
     />
-    <title>MHD-EES | NexusGate</title>
+    <title>需求工作台 | MHD-EES</title>
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./project.css" />
+    <link rel="stylesheet" href="./mhdees.css?v=2" />
   </head>
-  <body class="project-page">
+  <body class="project-page mhdees-page">
     <header class="project-topbar">
-      <div class="project-topbar-inner">
+      <div class="project-topbar-inner mhdees-topbar-inner">
         <a class="brand" href="./dashboard.html" aria-label="返回 NexusGate 控制台">
           <span class="brand-mark" aria-hidden="true">N</span>
           <span>NexusGate</span>
         </a>
-        <a class="back-link" href="./dashboard.html">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 12H5M10 7l-5 5 5 5"></path>
-          </svg>
-          返回控制台
-        </a>
+        <nav class="project-nav" aria-label="项目导航">
+          <a href="./mhdees.html" aria-current="page">需求工作台</a>
+          <a href="./dashboard.html">返回控制台</a>
+        </nav>
       </div>
     </header>
 
-    <main class="project-main">
-      <section class="project-hero" aria-labelledby="project-title">
+    <main class="project-main mhdees-main">
+      <section class="project-hero mhdees-hero" aria-labelledby="project-title">
         <div>
-          <p class="eyebrow">PROJECT / MHD-EES</p>
-          <h1 id="project-title">多源异构数据效能评估体系</h1>
+          <p class="eyebrow">MHD-EES / VALIDATION REQUIREMENTS</p>
+          <h1 id="project-title">验证需求工作台</h1>
           <p class="project-subtitle">
-            Multi-source Heterogeneous Data Effectiveness Evaluation System
+            统一管理多源异构数据效能验证需求、仿真执行、报告与评价。
           </p>
+          <div class="hero-tags" aria-label="系统能力">
+            <span>承载网业务域</span>
+            <span>NexusGate JWT</span>
+            <span>全流程状态追踪</span>
+          </div>
         </div>
-        <span class="project-code">MHD-EES</span>
+        <a class="button button-primary hero-action" href="./mhdees_create.html">
+          <span aria-hidden="true">＋</span>
+          新建需求
+        </a>
       </section>
 
-      <section class="project-workspace" aria-labelledby="workspace-title">
-        <div class="workspace-heading">
+      <section class="content-panel" aria-labelledby="requirements-heading">
+        <div class="panel-heading">
           <div>
-            <p class="workspace-label">PROJECT WORKSPACE</p>
-            <h2 id="workspace-title">项目工作区</h2>
+            <p class="panel-kicker">REQUIREMENT REGISTER</p>
+            <h2 id="requirements-heading">验证需求</h2>
+            <p class="panel-description">按业务方向、验证类型和执行状态定位需求。</p>
           </div>
-          <span class="workspace-status">
-            <span aria-hidden="true"></span>
-            入口已就绪
-          </span>
+          <span class="record-count" id="record-count">正在加载</span>
         </div>
 
-        <div class="workspace-empty">
-          <span class="workspace-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="5" r="2.5"></circle>
-              <circle cx="5" cy="17" r="2.5"></circle>
-              <circle cx="19" cy="17" r="2.5"></circle>
-              <path d="m10.6 7.2-4.2 7.6M13.4 7.2l4.2 7.6M7.5 17h9"></path>
-            </svg>
-          </span>
-          <p class="workspace-code">MHD-EES</p>
-          <h3>项目页面入口已建立</h3>
-          <p>后续评估与分析模块可在此页面继续扩展。</p>
+        <form class="filter-toolbar" id="filter-form">
+          <label class="compact-field search-field">
+            <span>模糊搜索</span>
+            <input
+              id="keyword-filter"
+              name="keyword"
+              type="search"
+              placeholder="需求编号或名称"
+              autocomplete="off"
+            />
+          </label>
+          <label class="compact-field">
+            <span>状态</span>
+            <select id="status-filter" name="status">
+              <option value="">全部状态</option>
+              <option value="draft">草稿</option>
+              <option value="running">仿真执行中</option>
+              <option value="cancelled">取消执行</option>
+              <option value="pending_report">待生成报告</option>
+              <option value="report_generated">报告已生成</option>
+              <option value="evaluating">评价中</option>
+              <option value="completed">已完成</option>
+              <option value="archived">已归档</option>
+            </select>
+          </label>
+          <label class="compact-field">
+            <span>业务方向</span>
+            <select id="business-filter" name="business_direction_id">
+              <option value="">全部业务方向</option>
+            </select>
+          </label>
+          <label class="compact-field">
+            <span>验证类型</span>
+            <select id="verification-filter" name="verification_type_id">
+              <option value="">全部验证类型</option>
+            </select>
+          </label>
+          <button class="button button-secondary toolbar-submit" type="submit">
+            查询
+          </button>
+        </form>
+
+        <div class="inline-message" id="workspace-message" role="alert" hidden></div>
+
+        <div class="table-shell">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>需求编号</th>
+                <th>需求名称</th>
+                <th>业务方向</th>
+                <th>验证类型</th>
+                <th>提出人</th>
+                <th>创建日期</th>
+                <th>状态</th>
+                <th class="align-right">操作</th>
+              </tr>
+            </thead>
+            <tbody id="requirements-body">
+              <tr>
+                <td colspan="8" class="table-loading">正在读取验证需求…</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
+        <footer class="table-footer">
+          <span id="page-summary">第 1 页</span>
+          <div class="pagination">
+            <button class="button button-quiet" id="previous-page" type="button">
+              上一页
+            </button>
+            <button class="button button-quiet" id="next-page" type="button">
+              下一页
+            </button>
+          </div>
+        </footer>
       </section>
     </main>
 
     <footer class="project-footer">
       <span>NexusGate / MHD-EES</span>
-      <span>Project workspace</span>
+      <span>Requirements and simulation control</span>
     </footer>
+
+    <script src="./config.js"></script>
+    <script src="./mhdees_common.js?v=2"></script>
+    <script src="./mhdees.js?v=2"></script>
   </body>
 </html>

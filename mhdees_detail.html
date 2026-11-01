@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MHD-EES 验证需求详情" />
+    <title>需求详情 | MHD-EES</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./project.css" />
+    <link rel="stylesheet" href="./mhdees.css?v=2" />
+  </head>
+  <body class="project-page mhdees-page">
+    <header class="project-topbar">
+      <div class="project-topbar-inner mhdees-topbar-inner">
+        <a class="brand" href="./dashboard.html" aria-label="返回 NexusGate 控制台">
+          <span class="brand-mark" aria-hidden="true">N</span>
+          <span>NexusGate</span>
+        </a>
+        <nav class="project-nav" aria-label="项目导航">
+          <a href="./mhdees.html">需求工作台</a>
+          <a href="./dashboard.html">返回控制台</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="project-main mhdees-main">
+      <section class="project-hero mhdees-hero" aria-labelledby="detail-title">
+        <div>
+          <p class="eyebrow">MHD-EES / REQUIREMENT DETAIL</p>
+          <h1 id="detail-title">正在读取需求…</h1>
+          <p class="project-subtitle mono-cell" id="detail-no">—</p>
+          <div class="detail-hero-meta">
+            <span class="status-badge status-muted" id="detail-status">加载中</span>
+            <span class="hero-tags" id="detail-tags"></span>
+          </div>
+        </div>
+        <a class="button button-secondary hero-action" id="back-link" href="./mhdees.html">
+          返回工作台
+        </a>
+      </section>
+
+      <div class="inline-message" id="detail-message" role="alert" hidden></div>
+
+      <div class="detail-grid">
+        <div class="detail-stack">
+          <section class="detail-card" aria-labelledby="basic-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">01 / BASIC</p>
+                <h2 id="basic-title">基本信息</h2>
+              </div>
+            </div>
+            <div class="info-list">
+              <div class="info-item"><span>需求名称</span><strong id="info-name">—</strong></div>
+              <div class="info-item"><span>业务方向</span><strong id="info-business">—</strong></div>
+              <div class="info-item"><span>验证类型</span><strong id="info-verification">—</strong></div>
+              <div class="info-item"><span>提出人</span><strong id="info-owner">—</strong></div>
+              <div class="info-item"><span>创建时间</span><strong id="info-created">—</strong></div>
+              <div class="info-item"><span>最近更新</span><strong id="info-updated">—</strong></div>
+            </div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="constellation-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">02 / NETWORK PROFILE</p>
+                <h2 id="constellation-title">星座与链路参数</h2>
+              </div>
+            </div>
+            <div class="info-list">
+              <div class="info-item"><span>星座名称</span><strong id="constellation-name">—</strong></div>
+              <div class="info-item"><span>轨道规模</span><strong id="constellation-scale">—</strong></div>
+              <div class="info-item"><span>轨道高度</span><strong id="orbit-altitude">—</strong></div>
+              <div class="info-item"><span>轨道倾角</span><strong id="orbit-inclination">—</strong></div>
+              <div class="info-item"><span>星座构型</span><strong id="constellation-config">—</strong></div>
+              <div class="info-item"><span>链路速率</span><strong id="link-rates">—</strong></div>
+              <div class="info-item is-wide"><span>备注</span><strong id="constellation-remark">—</strong></div>
+            </div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="policy-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">03 / ALGORITHM POLICY</p>
+                <h2 id="policy-title">算法策略</h2>
+              </div>
+            </div>
+            <table class="policy-table">
+              <thead>
+                <tr>
+                  <th>策略</th>
+                  <th>开始</th>
+                  <th>结束</th>
+                  <th>步长</th>
+                  <th>单位</th>
+                </tr>
+              </thead>
+              <tbody id="policy-body"></tbody>
+            </table>
+          </section>
+        </div>
+
+        <div class="detail-stack">
+          <section class="detail-card" aria-labelledby="simulation-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">04 / SIMULATION</p>
+                <h2 id="simulation-title">仿真配置</h2>
+              </div>
+            </div>
+            <div class="info-list">
+              <div class="info-item"><span>仿真倍速</span><strong id="sim-speed">—</strong></div>
+              <div class="info-item"><span>仿真时长</span><strong id="sim-duration">—</strong></div>
+              <div class="info-item"><span>计划开始</span><strong id="sim-start">—</strong></div>
+              <div class="info-item"><span>预计结束</span><strong id="sim-end">—</strong></div>
+            </div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="runs-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">05 / RUNS</p>
+                <h2 id="runs-title">仿真运行记录</h2>
+              </div>
+            </div>
+            <div class="run-list" id="run-list">
+              <div class="loading-block">正在读取运行记录…</div>
+            </div>
+          </section>
+
+          <section class="detail-card" aria-labelledby="history-title">
+            <div class="detail-section-heading">
+              <div>
+                <p class="section-index">06 / HISTORY</p>
+                <h2 id="history-title">状态历史</h2>
+              </div>
+            </div>
+            <ol class="history-list" id="history-list"></ol>
+          </section>
+        </div>
+      </div>
+
+      <div class="detail-actions" id="detail-actions"></div>
+    </main>
+
+    <footer class="project-footer">
+      <span>NexusGate / MHD-EES</span>
+      <span>Requirement lifecycle</span>
+    </footer>
+
+    <script src="./config.js"></script>
+    <script src="./mhdees_common.js?v=2"></script>
+    <script src="./mhdees_detail.js?v=2"></script>
+  </body>
+</html>

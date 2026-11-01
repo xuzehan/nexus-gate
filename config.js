@@ -2,4 +2,5 @@
 window.NEXUS_CONFIG = Object.freeze({
   API_BASE_URL: "https://api.u4162692.nyat.app:36744",
   MHDEES_API_BASE_URL: "https://api.u4162692.nyat.app:36744",
+  MUSIC_APP_URL: "https://api.u4162692.nyat.app:36744/music/",
 });

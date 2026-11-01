@@ -12,6 +12,9 @@
   const apiBaseUrl = String(window.NEXUS_CONFIG?.API_BASE_URL ?? "")
     .trim()
     .replace(/\/+$/, "");
+  const configuredMusicAppUrl = String(
+    window.NEXUS_CONFIG?.MUSIC_APP_URL ?? "./music/",
+  ).trim();
 
   const elements = {
     connectionState: document.querySelector("#connection-state"),
@@ -49,6 +52,7 @@
     bootTime: document.querySelector("#boot-time"),
     servicesGrid: document.querySelector("#services-grid"),
     serviceSummary: document.querySelector("#service-summary"),
+    musicAppLinks: document.querySelectorAll("[data-music-app-link]"),
   };
 
   const numberFormatter = new Intl.NumberFormat("zh-CN", {
@@ -65,6 +69,37 @@
 
   let refreshTimer;
   let isRefreshing = false;
+  let currentUsername = "";
+
+  function musicAppUrl() {
+    try {
+      const url = new URL(configuredMusicAppUrl || "./music/", document.baseURI);
+      if (url.protocol === "http:" || url.protocol === "https:") return url;
+    } catch {
+      // Fall through to the co-located app path.
+    }
+    return new URL("./music/", document.baseURI);
+  }
+
+  function prepareMusicLinks() {
+    const baseUrl = musicAppUrl().href;
+    for (const link of elements.musicAppLinks) {
+      link.href = baseUrl;
+      link.addEventListener("click", (event) => {
+        const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+        if (!token) {
+          event.preventDefault();
+          redirectToLogin();
+          return;
+        }
+        const target = musicAppUrl();
+        const handoff = new URLSearchParams({ nexus_token: token });
+        if (currentUsername) handoff.set("nexus_user", currentUsername);
+        target.hash = handoff.toString();
+        link.href = target.href;
+      });
+    }
+  }
 
   function redirectToLogin() {
     localStorage.removeItem(TOKEN_STORAGE_KEY);
@@ -369,6 +404,7 @@
       }
 
       const data = await response.json();
+      currentUsername = String(data.user?.username ?? "");
       renderMetrics(data);
       renderServices(data.services);
       setConnectionState("online", "已连接 G4");
@@ -398,6 +434,7 @@
 
   elements.refreshButton.addEventListener("click", loadDashboard);
   elements.logoutButton.addEventListener("click", redirectToLogin);
+  prepareMusicLinks();
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
       loadDashboard();

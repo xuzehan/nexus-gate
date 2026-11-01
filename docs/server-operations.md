@@ -69,7 +69,8 @@ music-api 127.0.0.1:8002
 仓库中的完整参考配置：
 
 ```text
-server_music_backend/deploy/nexus-api-with-music-app.conf
+docs/nexus-api-with-music-app.conf
+docs/music-api.service
 ```
 
 关键规则：

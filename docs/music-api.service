@@ -1,0 +1,17 @@
+[Unit]
+Description=NexusMusic local-first music API
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/root/music_api
+EnvironmentFile=/root/music_api/.env
+ExecStart=/root/music_api/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8002 --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

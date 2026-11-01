@@ -3,6 +3,11 @@
 
   const TOKEN_STORAGE_KEY = "nexusgate_access_token";
   const REFRESH_INTERVAL_MS = 30000;
+  const SERVICE_LABELS = Object.freeze({
+    "nexusgate-api": "NexusGate API",
+    "nexus-mhdees-api": "MHD-EES API",
+    nginx: "Nginx",
+  });
 
   const apiBaseUrl = String(window.NEXUS_CONFIG?.API_BASE_URL ?? "")
     .trim()
@@ -269,10 +274,12 @@
     const titleGroup = document.createElement("div");
     const name = document.createElement("h3");
     name.className = "service-name";
-    name.textContent = service.name;
+    name.textContent = SERVICE_LABELS[service.name] || service.name;
     const kind = document.createElement("p");
     kind.className = "service-kind";
-    kind.textContent = service.kind;
+    kind.textContent = SERVICE_LABELS[service.name]
+      ? `${service.kind} · ${service.name}`
+      : service.kind;
     titleGroup.append(name, kind);
 
     const badge = document.createElement("span");

@@ -1058,6 +1058,39 @@ body.dashboard-page {
   color: #bc817e;
 }
 
+.project-card-knowledge {
+  border-color: rgba(115, 177, 235, 0.17);
+  background:
+    radial-gradient(circle at 90% 18%, rgba(111, 166, 227, 0.1), transparent 16rem),
+    linear-gradient(115deg, rgba(24, 38, 51, 0.94), rgba(13, 26, 33, 0.92));
+}
+
+.project-card-knowledge::before {
+  border-color: rgba(116, 179, 237, 0.15);
+  box-shadow:
+    0 0 0 34px rgba(116, 179, 237, 0.022),
+    0 0 0 68px rgba(116, 179, 237, 0.014);
+}
+
+.project-card-knowledge::after {
+  background: #71b9f4;
+  box-shadow: 0 0 16px rgba(113, 185, 244, 0.25);
+}
+
+.project-card-knowledge .project-icon {
+  border-color: rgba(116, 179, 237, 0.25);
+  color: #8ac8fa;
+  background: rgba(116, 179, 237, 0.1);
+}
+
+.project-card-knowledge .project-kicker {
+  color: #789bb9;
+}
+
+.project-card-knowledge .project-description {
+  color: #8799a7;
+}
+
 .project-description {
   margin: 7px 0 0;
   color: #96817f;
@@ -1115,8 +1148,19 @@ body.dashboard-page {
       linear-gradient(115deg, rgba(61, 31, 37, 0.96), rgba(27, 21, 28, 0.94));
   }
 
+  .project-card-knowledge:hover {
+    border-color: rgba(116, 179, 237, 0.34);
+    background:
+      radial-gradient(circle at 90% 18%, rgba(111, 166, 227, 0.15), transparent 16rem),
+      linear-gradient(115deg, rgba(29, 46, 62, 0.98), rgba(15, 30, 39, 0.96));
+  }
+
   .project-card.project-card-music:hover .project-open {
     color: #ff9b92;
+  }
+
+  .project-card.project-card-knowledge:hover .project-open {
+    color: #8ac8fa;
   }
 
   .project-card:hover .project-open {

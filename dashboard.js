@@ -15,6 +15,9 @@
   const configuredMusicAppUrl = String(
     window.NEXUS_CONFIG?.MUSIC_APP_URL ?? "./music/",
   ).trim();
+  const configuredKnowledgeBaseUrl = String(
+    window.NEXUS_CONFIG?.SERVER_KNOWLEDGE_BASE_URL ?? "./knowledge/",
+  ).trim();
 
   const elements = {
     connectionState: document.querySelector("#connection-state"),
@@ -53,6 +56,7 @@
     servicesGrid: document.querySelector("#services-grid"),
     serviceSummary: document.querySelector("#service-summary"),
     musicAppLinks: document.querySelectorAll("[data-music-app-link]"),
+    knowledgeBaseLinks: document.querySelectorAll("[data-knowledge-base-link]"),
   };
 
   const numberFormatter = new Intl.NumberFormat("zh-CN", {
@@ -97,6 +101,31 @@
         if (currentUsername) handoff.set("nexus_user", currentUsername);
         target.hash = handoff.toString();
         link.href = target.href;
+      });
+    }
+  }
+
+  function prepareKnowledgeBaseLinks() {
+    let target;
+    try {
+      target = new URL(configuredKnowledgeBaseUrl || "./knowledge/", document.baseURI);
+    } catch {
+      target = new URL("./knowledge/", document.baseURI);
+    }
+    for (const link of elements.knowledgeBaseLinks) {
+      link.href = target.href;
+      link.addEventListener("click", (event) => {
+        const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+        if (!token) {
+          event.preventDefault();
+          redirectToLogin();
+          return;
+        }
+        const handoff = new URLSearchParams({ nexus_token: token });
+        if (currentUsername) handoff.set("nexus_user", currentUsername);
+        const destination = new URL(target.href);
+        destination.hash = handoff.toString();
+        link.href = destination.href;
       });
     }
   }
@@ -435,6 +464,7 @@
   elements.refreshButton.addEventListener("click", loadDashboard);
   elements.logoutButton.addEventListener("click", redirectToLogin);
   prepareMusicLinks();
+  prepareKnowledgeBaseLinks();
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
       loadDashboard();
